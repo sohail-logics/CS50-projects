@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Birthdays</title>
+
+    <!-- Bootstrap (optional but nice for CS50 style) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Your stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body class="bg-light">
+    <div class="container py-5">
+      <header class="mb-4 text-center">
+        <h1 class="display-6 fw-bold">🎂 Birthdays</h1>
+        <p class="text-muted mb-0">Add a birthday and see the list below.</p>
+      </header>
+
+      <!-- Add form -->
+      <section class="card shadow-sm mb-4">
+        <div class="card-body">
+          <form action="/" method="post" class="row g-3" autocomplete="off" novalidate>
+            <div class="col-md-6">
+              <label for="name" class="form-label">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                class="form-control"
+                placeholder="e.g., Amina"
+                required
+                minlength="1"
+                maxlength="50"
+              />
+              <div class="form-text">Max 50 characters.</div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="month" class="form-label">Month</label>
+              <input
+                id="month"
+                name="month"
+                type="number"
+                class="form-control"
+                placeholder="1–12"
+                min="1"
+                max="12"
+                required
+              />
+            </div>
+
+            <div class="col-md-3">
+              <label for="day" class="form-label">Day</label>
+              <input
+                id="day"
+                name="day"
+                type="number"
+                class="form-control"
+                placeholder="1–31"
+                min="1"
+                max="31"
+                required
+              />
+            </div>
+
+            <div class="col-12 d-flex gap-2">
+              <button type="submit" class="btn btn-primary">Add Birthday</button>
+              <button type="reset" class="btn btn-outline-secondary">Clear</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Birthdays table -->
+      <section class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 mb-0">Saved Birthdays</h2>
+            <span class="badge bg-secondary">{{ birthdays|length if birthdays else 0 }}</span>
+          </div>
+
+          {% if birthdays and birthdays|length > 0 %}
+          <div class="table-responsive">
+            <table class="table align-middle table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Month</th>
+                  <th scope="col">Day</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in birthdays %}
+                <tr>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td class="fw-medium">{{ row["name"] }}</td>
+                  <td>{{ row["month"] }}</td>
+                  <td>{{ row["day"] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="text-center text-muted py-4">
+            <p class="mb-1">No birthdays yet.</p>
+            <small>Add one using the form above!</small>
+          </div>
+          {% endif %}
+        </div>
+      </section>
+
+      <footer class="text-center text-muted small mt-4">
+        CS50 Birthdays • Flask + Jinja template
+      </footer>
+    </div>
+
+    <!-- Optional Bootstrap JS (not required for this page) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
