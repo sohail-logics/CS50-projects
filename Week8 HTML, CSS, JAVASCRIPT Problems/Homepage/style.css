@@ -1,0 +1,25 @@
+/* 5 selectors + 5 properties */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: darkblue;
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    margin: 20px;
+}
+
+a {
+    color: darkred;
+    text-decoration: none;
+}
+
+button {
+    margin-top: 20px;
+    border-radius: 8px;
+}
