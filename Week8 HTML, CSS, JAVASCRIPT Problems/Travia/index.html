@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia!</title>
+    <link href="styles.css" rel="stylesheet">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Multiple-choice question
+            let buttons = document.querySelectorAll(".mcq");
+            buttons.forEach(button => {
+                button.addEventListener("click", () => {
+                    let feedback = document.querySelector("#mcq-feedback");
+
+                    if (button.dataset.correct === "true") {
+                        button.style.backgroundColor = "green";
+                        feedback.textContent = "Correct!";
+                    } else {
+                        button.style.backgroundColor = "red";
+                        feedback.textContent = "Incorrect";
+                    }
+                });
+            });
+
+            // Free-response question
+            document.querySelector("#check-answer").addEventListener("click", () => {
+                let input = document.querySelector("#free-input");
+                let feedback = document.querySelector("#fr-feedback");
+
+                if (input.value.trim().toLowerCase() === "switzerland") {
+                    input.style.backgroundColor = "green";
+                    feedback.textContent = "Correct!";
+                } else {
+                    input.style.backgroundColor = "red";
+                    feedback.textContent = "Incorrect";
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Trivia!</h1>
+    </div>
+
+    <div class="container">
+        <!-- Part 1: Multiple Choice -->
+        <div class="section">
+            <h2>Part 1: Multiple Choice</h2>
+            <hr>
+            <h3>What is the capital of France?</h3>
+            <button class="mcq" data-correct="false">Berlin</button>
+            <button class="mcq" data-correct="false">Madrid</button>
+            <button class="mcq" data-correct="true">Paris</button>
+            <button class="mcq" data-correct="false">Rome</button>
+            <p id="mcq-feedback"></p>
+        </div>
+
+        <!-- Part 2: Free Response -->
+        <div class="section">
+            <h2>Part 2: Free Response</h2>
+            <hr>
+            <h3>Which country is famous for the Alps and chocolate?</h3>
+            <input id="free-input" type="text" placeholder="Your answer here">
+            <button id="check-answer">Check</button>
+            <p id="fr-feedback"></p>
+        </div>
+    </div>
+</body>
+</html>
